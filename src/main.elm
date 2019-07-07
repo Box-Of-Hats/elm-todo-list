@@ -44,7 +44,7 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         AddTask ->
-            { model | tasks = model.tasks ++ [ model.newTask ], newTask = "" }
+            { model | tasks = List.filter isNotEmptyString (model.tasks ++ [ model.newTask ]), newTask = "" }
 
         CompleteTask task ->
             { model
@@ -65,6 +65,11 @@ update msg model =
 areStringsNotEqual : String -> String -> Bool
 areStringsNotEqual a b =
     not (a == b)
+
+
+isNotEmptyString : String -> Bool
+isNotEmptyString str =
+    not (String.isEmpty str)
 
 
 
