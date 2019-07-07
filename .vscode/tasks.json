@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile elm",
+            "type": "shell",
+            "command": "elm make src/main.elm --output=out/app.js",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Compile Scss",
+            "type": "shell",
+            "command": "node-sass .\\src\\style.scss -o .\\out\\",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Compile project",
+            "dependsOn": [
+                "Compile elm",
+                "Compile Scss"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
