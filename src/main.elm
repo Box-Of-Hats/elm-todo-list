@@ -38,6 +38,7 @@ type Msg
     | CompleteTask String
     | UpdateTaskBox String
     | UnCompleteTask String
+    | DeleteTask String
 
 
 update : Msg -> Model -> Model
@@ -59,6 +60,11 @@ update msg model =
             { model
                 | completedTasks = List.filter (areStringsNotEqual task) model.completedTasks
                 , tasks = model.tasks ++ [ task ]
+            }
+
+        DeleteTask task ->
+            { model
+                | completedTasks = List.filter (areStringsNotEqual task) model.completedTasks
             }
 
 
@@ -112,4 +118,8 @@ renderTextInput textFieldValue =
 
 renderCompletedTask : String -> Html Msg
 renderCompletedTask task =
-    div [ class "tasks-app__task tasks-app__task--completed" ] [ text task, div [ class "tasks-app__check tasks-app__check--completed", onClick (UnCompleteTask task) ] [] ]
+    div [ class "tasks-app__task tasks-app__task--completed" ]
+        [ text task
+        , div [ class "tasks-app__icon tasks-app__icon--delete", onClick (DeleteTask task) ] []
+        , div [ class "tasks-app__check tasks-app__check--completed", onClick (UnCompleteTask task) ] []
+        ]
